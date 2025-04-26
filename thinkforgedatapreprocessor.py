@@ -8,7 +8,7 @@ import os
 st.title("ThinkForge - Data Preprocessing")
 st.write("We provide data preprocessing without writing any line of code.")
 
-# Upload CSV file
+
 file = st.file_uploader("Upload your CSV File:", type='.csv')
 
 if file:
@@ -16,8 +16,7 @@ if file:
     df_ = pd.read_csv(file)
     st.write("Original Data:")
     st.write(df_.head(10))  
-    
-    # Preprocessing before selecting the column
+  
     df = df_.dropna()
     df = pd.get_dummies(df)
 
@@ -45,13 +44,11 @@ if file:
                 data=csv_data_,
                 file_name=f"{file_name}_outlier_data.csv",
                 mime="text/csv"
-
             )
         else:
             st.warning(f"Column '{selected_column}' not found after encoding.")
             df_no_outliers = df
 
-        # Scaling
         scaler = StandardScaler()
         X_scaled = scaler.fit_transform(df_no_outliers)
         X_scaled = pd.DataFrame(X_scaled, columns=df_no_outliers.columns)
